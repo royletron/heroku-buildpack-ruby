@@ -4,6 +4,7 @@
 $stdout.sync = true
 
 puts "----> Darren Says: "+ARGV[0]
+puts "----> Darren Says: "+ARGV[1]
 
 $:.unshift File.expand_path("../../lib", __FILE__)
 require "language_pack"
