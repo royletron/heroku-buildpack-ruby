@@ -8,6 +8,9 @@ CACHE_DIR=ARGV[1]
 PYPY_DIR=CACHE_DIR+'/pypy-1.8'
 VENDORED_PYPY="https://bitbucket.org/pypy/pypy/downloads/pypy-1.8-linux64.tar.bz2"
 
+puts "-----> Build dir          : "+BUILD_DIR
+puts "-----> Cache dir          : "+CACHE_DIR
+puts "-----> Magic dir          : "+ARGV[2]
 puts "-----> Making Dirs        : "+%x[mkdir -p #{CACHE_DIR}]
 puts "-----> Downloading Pypy   : "+%x[cd #{CACHE_DIR}; curl -sLO #{VENDORED_PYPY}]
 puts "-----> Delete old dir     : "+%x[rm -fr #{CACHE_DIR}/pypy-1.8]
