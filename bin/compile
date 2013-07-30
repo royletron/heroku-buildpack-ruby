@@ -3,8 +3,16 @@
 # sync output
 $stdout.sync = true
 
-puts "----> Darren Says: "+ARGV[0]
-puts "----> Darren Says: "+ARGV[1]
+BUILD_DIR=ARGV[0]
+CACHE_DIR=ARGV[1]
+PYPY_DIR=CACHE_DIR+'/pypy-1.8'
+VENDORED_PYPY="https://bitbucket.org/pypy/pypy/downloads/pypy-1.8-linux64.tar.bz2"
+
+puts "-----> Making Dirs        : "+%x[mkdir -p #{CACHE_DIR}]
+puts "-----> Downloading Pypy   : "+%x[cd #{CACHE_DIR}; curl -sLO #{VENDORED_PYPY}]
+puts "-----> Delete old dir     : "+%x[rm -fr #{CACHE_DIR}/pypy-1.8]
+puts "-----> Making new dir     : "+%x[mkdir #{CACHE_DIR}/pypy-1.8]
+puts "-----> Extracting Tarball : "+%x[tar -jxf #{CACHE_DIR}/pypy-1.8-linux64.tar.bz2 -C #{PYPY_DIR} --strip-components 1]
 
 $:.unshift File.expand_path("../../lib", __FILE__)
 require "language_pack"
