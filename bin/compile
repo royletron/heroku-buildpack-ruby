@@ -10,12 +10,32 @@ VENDORED_PYPY="https://bitbucket.org/pypy/pypy/downloads/pypy-1.8-linux64.tar.bz
 
 puts "-----> Build dir          : "+BUILD_DIR
 puts "-----> Cache dir          : "+CACHE_DIR
-puts "-----> Magic dir          : "+ARGV[2]
 puts "-----> Making Dirs        : "+%x[mkdir -p #{CACHE_DIR}]
 puts "-----> Downloading Pypy   : "+%x[cd #{CACHE_DIR}; curl -sLO #{VENDORED_PYPY}]
 puts "-----> Delete old dir     : "+%x[rm -fr #{CACHE_DIR}/pypy-1.8]
 puts "-----> Making new dir     : "+%x[mkdir #{CACHE_DIR}/pypy-1.8]
 puts "-----> Extracting Tarball : "+%x[tar -jxf #{CACHE_DIR}/pypy-1.8-linux64.tar.bz2 -C #{PYPY_DIR} --strip-components 1]
+puts "-----> Line 18            : "+%x[rm -fr #{BUILD_DIR}/include #{BUILD_DIR}/lib_pypy #{BUILD_DIR}/lib-python]
+puts "-----> Line 19            : "+%x[cp -RL #{PYPY_DIR}/include #{BUILD_DIR}/]
+puts "-----> Line 20            : "+%x[cp -RL #{PYPY_DIR}/lib_pypy #{BUILD_DIR}/]
+puts "-----> Line 21            : "+%x[cp -RL #{PYPY_DIR}/lib-python #{BUILD_DIR}/]
+puts "-----> Line 22            : "+%x[pushd #{BUILD_DIR}/bin} &> /dev/null]
+puts "-----> Line 23            : "+%x[rm -f python]
+puts "-----> Line 24            : "+%x[ln -s pypy python]
+puts "-----> Line 25            : "+%x[popd &> /dev/null]
+puts "-----> Line 26            : "+%x[rm -fr #{BUILD_DIR}/lib-python/2.7/test/]
+puts "-----> Line 27            : "+%x[rm -fr #{BUILD_DIR}/lib-python/2.7/lib2to3/tests/]
+puts "-----> Line 28            : "+%x[rm -fr #{BUILD_DIR}/lib-python/modified-2.7/test/]
+puts "-----> Line 29            : "+%x[rm -fr #{BUILD_DIR}/lib-python/modified-2.7/lib2to3/tests/]
+puts "-----> Line 30            : "+%x[rm -fr #{BUILD_DIR}/lib_pypy/pypy_test/]
+puts "-----> Line 31            : "+%x[rm -fr #{CACHE_DIR}/pypy-1.8]
+puts "-----> Line 32            : "+%x[rm -fr #{CACHE_DIR}/bin]
+puts "-----> Line 33            : "+%x[rm -fr #{CACHE_DIR}/include]
+puts "-----> Line 34            : "+%x[rm -fr #{CACHE_DIR}/lib-python]
+puts "-----> Line 35            : "+%x[rm -fr #{CACHE_DIR}/lib_pypy]
+puts "-----> Line 36            : "+%x[rm -fr #{CACHE_DIR}/site-packages]
+puts "-----> Line 37            : "+%x[find #{CACHE_DIR} -name "*.pyc" -delete]
+puts "-----> Line 38            : "+%x[find #{BUILD_DIR} -name "*.pyc" -delete]
 
 $:.unshift File.expand_path("../../lib", __FILE__)
 require "language_pack"
